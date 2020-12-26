@@ -1,10 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%
+request.setCharacterEncoding("UTF-8");
+response.setCharacterEncoding("UTF-8");
+response.setContentType("text/html; charset=UTF-8");
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>从数据库下载文件</title>
 </head>
 <body>
 	<form action="DBFileDownload" method="get">

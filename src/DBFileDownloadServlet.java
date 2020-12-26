@@ -1,4 +1,4 @@
-
+//中文
  
 import java.io.IOException;
 import java.sql.Connection;
@@ -13,6 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import java.net.URLEncoder;
  
 /**
  * Servlet implementation class GetDetails
@@ -22,8 +24,11 @@ public class DBFileDownloadServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
         
       protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-         
-        String id = request.getParameter("id")!=null?request.getParameter("id"):"NA";
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        
+    	String id = request.getParameter("id")!=null?request.getParameter("id"):"NA";
          
         ServletOutputStream sos;
         Connection  con=null;
@@ -52,9 +57,10 @@ public class DBFileDownloadServlet extends HttpServlet {
                 if (rset.next()) {
                     response.setContentType("APPLICATION/OCTET-STREAM");
                     
-                    response.setHeader("Content-disposition","inline; filename=" + rset.getString("filename"));
+                    response.setHeader("Content-disposition","inline; filename*=UTF-8''" + URLEncoder.encode(rset.getString("filename"), "UTF-8"));
                     sos.write(rset.getBytes("file"));
                 	System.out.println(rset.getBytes("file"));
+                	System.out.println(rset.getString("filename"));
                 }
                 else
                     return;

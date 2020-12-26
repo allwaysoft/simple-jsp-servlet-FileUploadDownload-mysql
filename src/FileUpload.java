@@ -1,4 +1,4 @@
-
+//中文
  
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -28,8 +28,10 @@ public class FileUpload extends HttpServlet {
     private static final long serialVersionUID = 1L;
  
     protected void doPost(HttpServletRequest request,  HttpServletResponse response)throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
- 
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("text/html; charset=UTF-8");
+        
         final Part filePart = request.getPart("file");
         String id = request.getParameter("id");
  
