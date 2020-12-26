@@ -1,5 +1,9 @@
 CREATE TABLE `upload` (
-  `id` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  `pdf` longblob NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+	`id` VARCHAR(50) NOT NULL DEFAULT '' COLLATE 'utf8mb4_unicode_ci',
+	`file` LONGBLOB NOT NULL,
+	`filename` VARCHAR(255) NOT NULL DEFAULT '' COLLATE 'utf8mb4_unicode_ci',
+	PRIMARY KEY (`id`) USING BTREE
+)
+COLLATE='utf8mb4_unicode_ci'
+ENGINE=InnoDB
+;

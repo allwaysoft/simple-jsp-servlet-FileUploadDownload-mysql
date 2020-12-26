@@ -7,9 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="FileReadPdf" method="get">
+	<form action="DBFileDownload" method="get">
 		<input type="text" name="id">
-		<input type="submit" value="getPdf">
+		<input type="submit" value="getfile">
 		</form>
 </body>
 </html>

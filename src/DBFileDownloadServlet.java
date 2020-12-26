@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class GetDetails
  */
-@WebServlet("/FileReadPdf")
+@WebServlet("/DBFileDownload")
 public class DBFileDownloadServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
         
@@ -29,9 +29,7 @@ public class DBFileDownloadServlet extends HttpServlet {
         Connection  con=null;
         PreparedStatement pstmt=null;
          
-        response.setContentType("image/jpeg");
- 
-        response.setHeader("Content-disposition","inline; filename="+id+".jpg" );
+
  
  
          sos = response.getOutputStream();
@@ -47,13 +45,16 @@ public class DBFileDownloadServlet extends HttpServlet {
             
           ResultSet rset=null;
             try {
-                pstmt = con.prepareStatement("Select pdf from upload where id=?");
-                System.out.println("Select pdf from upload where id="+id.trim());
+                pstmt = con.prepareStatement("Select file,filename from upload where id=?");
+                System.out.println("Select file,filename from upload where id="+id.trim());
                 pstmt.setString(1, id.trim());
                 rset = pstmt.executeQuery();
                 if (rset.next()) {
-                    sos.write(rset.getBytes("pdf"));
-                	System.out.println(rset.getBytes("pdf"));
+                    response.setContentType("APPLICATION/OCTET-STREAM");
+                    
+                    response.setHeader("Content-disposition","inline; filename=" + rset.getString("filename"));
+                    sos.write(rset.getBytes("file"));
+                	System.out.println(rset.getBytes("file"));
                 }
                 else
                     return;
