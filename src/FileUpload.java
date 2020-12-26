@@ -53,11 +53,21 @@ public class FileUpload extends HttpServlet {
           //     }
           // }
  
+        	Runtime rt = Runtime.getRuntime();
+            System.out.println("before byte[] Total Memory = " +
+                rt.totalMemory() +
+                " Free Memory = " +
+                rt.freeMemory());
+
         	String filename = filePart.getSubmittedFileName();
         	FileBytes = filePart.getInputStream();  // to get the body of the request as binary data
  
-            final byte[] bytes = new byte[FileBytes.available()];
-             FileBytes.read(bytes);  //Storing the binary data in bytes array.
+            //final byte[] bytes = new byte[FileBytes.available()];
+            //FileBytes.read(bytes);  //Storing the binary data in bytes array.
+             System.out.println("after byte[] Total Memory = " +
+                     rt.totalMemory() +
+                     " Free Memory = " +
+                     rt.freeMemory());
  
             Connection  con=null;
              Statement stmt=null;
@@ -72,9 +82,13 @@ public class FileUpload extends HttpServlet {
                 int success=0;
                 PreparedStatement pstmt = con.prepareStatement("INSERT INTO upload VALUES(?,?,?)");
                 pstmt.setString(1, id);
-                pstmt.setBytes(2,bytes);    //Storing binary data in blob field.
+                pstmt.setBinaryStream(2,FileBytes);    //Storing binary data in blob field.
                 pstmt.setString(3,filename);    //Storing binary data in blob field.
                 success = pstmt.executeUpdate();
+                System.out.println("after byte[] and executeUpdate Total Memory = " +
+                        rt.totalMemory() +
+                        " Free Memory = " +
+                        rt.freeMemory());
                 if(success>=1)  System.out.println("Data Stored");
                  con.close(); 
  

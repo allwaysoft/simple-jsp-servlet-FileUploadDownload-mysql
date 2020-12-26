@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.net.URLEncoder;
+import java.io.InputStream;
  
 /**
  * Servlet implementation class GetDetails
@@ -58,7 +59,23 @@ public class DBFileDownloadServlet extends HttpServlet {
                     response.setContentType("APPLICATION/OCTET-STREAM");
                     
                     response.setHeader("Content-disposition","inline; filename*=UTF-8''" + URLEncoder.encode(rset.getString("filename"), "UTF-8"));
-                    sos.write(rset.getBytes("file"));
+                    Runtime rt = Runtime.getRuntime();
+                    System.out.println("before byte[] Total Memory = " +
+                            rt.totalMemory() +
+                            " Free Memory = " +
+                            rt.freeMemory());
+                    
+                    //sos.write(rset.getBytes("file"));
+                    InputStream  inputStream=rset.getBinaryStream("file");
+
+                    int i;   
+                    while ((i=inputStream.read()) != -1) {  
+                    	sos.write(i);   
+                    } 
+                    System.out.println("after byte[] Total Memory = " +
+                            rt.totalMemory() +
+                            " Free Memory = " +
+                            rt.freeMemory());
                 	System.out.println(rset.getBytes("file"));
                 	System.out.println(rset.getString("filename"));
                 }
