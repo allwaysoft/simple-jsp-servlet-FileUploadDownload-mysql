@@ -20,7 +20,7 @@ response.setContentType("text/html; charset=UTF-8");
         		<tr><td>Id</td>
         			<td><input type="text" name="id" /></td>
         		<tr>
-        			<td>PDF</td>
+        			<td>File</td>
            			<td><input type="file" name="file" id="file" /> </td>
         		</tr>
         		<tr>
